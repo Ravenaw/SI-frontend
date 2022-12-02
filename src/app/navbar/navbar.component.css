@@ -1,0 +1,9 @@
+.nav-link:hover
+{
+    text-decoration: none;
+    color: pink;
+}
+.navbar-nav .nav-link.active
+{
+    color: palevioletred;
+}
