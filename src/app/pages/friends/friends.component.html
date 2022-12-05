@@ -1,1 +1,32 @@
-<p>friends works!</p>
+<div class="container">
+  <div class="addFriend">
+    <form class="d-flex mb-3">
+      <div class="form-floating me-3">
+        <input
+          type="email"
+          class="form-control"
+          id="floatingInput"
+          placeholder="Email"
+        />
+        <label for="floatingInput">Email</label>
+      </div>
+      <button class="w-20 addbtn btn btn-m" type="submit">Add Friend</button>
+    </form>
+  </div>
+  <div class="row mb-3" *ngFor="let f of friendsList">
+    <div class="col-md-2 col-sm-2 mt-3 mb-3">
+      <img
+        src="{{ f.image_url }}"
+        alt="profile picture"
+        class="profile-photo-lg"
+      />
+    </div>
+    <div class="col-md-7 col-sm-7 mt-3 mb-3">
+      <h5>{{ f.username }}</h5>
+      <p class="text-muted">{{ f.email }}</p>
+    </div>
+    <div class="col-md-3 col-sm-3 mt-3 mb-3">
+      <button class="btn btn-danger pull-right">Remove friend</button>
+    </div>
+  </div>
+</div>

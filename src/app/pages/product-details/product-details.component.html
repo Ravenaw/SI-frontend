@@ -1,4 +1,10 @@
 <div class="container mt-5 mb-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="">Products</a></li>
+          <li class="breadcrumb-item active" aria-current="page" *ngIf="productDetails">{{productDetails[0].product_name}}</li>
+        </ol>
+      </nav>
     <div class="row">
         <div class="col-lg-6" *ngIf="productDetails">
             <img class="img-fluid" [src]="productDetails[0].image_url" alt="product image"/>
