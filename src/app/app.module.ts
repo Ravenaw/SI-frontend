@@ -12,6 +12,7 @@ import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { FriendsComponent } from './pages/friends/friends.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,13 +25,10 @@ import { ProductDetailsComponent } from './pages/product-details/product-details
     WishlistComponent,
     FriendsComponent,
     HomeComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -10,6 +10,6 @@ export class ProductsComponent {
   constructor(private productDetailsService: ProductDetailsService) { }
   productData: any = [];
   ngOnInit() {
-    this.productData = this.productDetailsService.getProductDetails();
+    this.productData = this.productDetailsService.productDetails;
   }
 }
