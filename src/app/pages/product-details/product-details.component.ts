@@ -18,7 +18,7 @@ export class ProductDetailsComponent {
     this.productId = this.param.snapshot.paramMap.get('id');
     console.log(this.productId, 'productId');
     if (this.productId) {
-      this.productDetails = this.service.productDetails.filter((value) => {
+      this.productDetails = this.service.productDetails.filter((value:any) => {
         return value.id == this.productId;
       });
       console.log(this.productDetails, 'productDetails');
