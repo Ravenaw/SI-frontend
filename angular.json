@@ -29,7 +29,8 @@
               "src/styles.css"
             ],
             "scripts": [
-              "src/app/scripts/getFTP.js"
+              "src/app/scripts/getFTP.js",
+              "src/app/scripts/getSQLite.js"
             ]
           },
           "configurations": {
