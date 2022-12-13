@@ -16,6 +16,8 @@ export class StorageService {
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
     window.sessionStorage.setItem('token', user.token);
+    localStorage.setItem('token', user.token);
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   public getUser(): any {
