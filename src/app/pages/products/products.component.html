@@ -7,10 +7,10 @@
   <div class="row">
     <div class="col-lg-4" *ngFor="let pd of productData">
         <div class="productbox mt-3 mb-3">
-            <img src="{{pd.product_images.Product_Image.image_url}}">
+            <img src="{{pd.product_images[0].image_url}}">
             <h1>{{pd.product_name}}</h1>
             <p>{{pd.product_description}}</p>
-            <p>{{pd.price | currency:'DKK'}}</p>
+            <p>{{pd.price}}</p>
             <br/>
             <a class="btn" [routerLink]="['/',pd.id]">Learn more</a>
             <a class="btn" style="float: right;">Add to wishlist</a>

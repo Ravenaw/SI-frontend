@@ -15,13 +15,16 @@ export class ProductDetailsComponent {
   productDetails: any;
 
   ngOnInit(): void {
-    this.productId = this.param.snapshot.paramMap.get('id');
-    console.log(this.productId, 'productId');
-    if (this.productId) {
-      this.productDetails = this.service.productDetails.filter((value:any) => {
-        return value.id == this.productId;
-      });
-      console.log(this.productDetails, 'productDetails');
-    }
+    console.log(this.param.snapshot.params['id']);
+    this.productId = this.param.snapshot.params['id'];
+    this.service.getProductDetail(this.productId).subscribe((data) => 
+        {
+          let parse = JSON.parse(JSON.stringify(data.data));
+          this.productDetails = parse.product;
+          console.log(this.productDetails);
+        });
+     
+      
+    
   }
 }
