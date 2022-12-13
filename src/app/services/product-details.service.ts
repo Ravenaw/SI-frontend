@@ -1,16 +1,27 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductDetailsService {
-  constructor(private http: HttpClient) {}
+  
+  constructor(private http: HttpClient,private storageService: StorageService) {}
 
   productDetails: any;
+  authKey: string = '';
+  getProducts(): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', this.authKey);
+    headers = headers.append('x-Flatten', 'true');
+    headers = headers.append('Content-Type', 'application/json');
+    return this.http.post
+      ("http://68.219.99.197:8002", {"query": "query getAllProducts {products {id product_name product_sub_title product_description price main_category sub_category  overall_rating}}" }, { headers: headers });
 
+  }
   /* productDetails = [
     {
       id: 1,
