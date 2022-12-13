@@ -1,35 +1,28 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+const EMAIL_API = 'http://68.219.117.56:8001/sendInvite';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json', 
+   'Ocp-Apim-Subscription-Key': 'e64edeb333d44d75a71c4a269d757e13'})
+};
 
 @Injectable({
   providedIn: 'root',
 })
 export class FriendsListService {
-  constructor() {}
-
-  friendsList = [
-    {
-      id: 1,
-      username: 'John',
-      email: 'john@example.com',
-      image_url: 'https://picsum.photos/3840/2160?random=1',
-    },
-    {
-      id: 2,
-      username: 'Mary',
-      email: 'mary@example.com',
-      image_url: 'https://picsum.photos/3840/2160?random=2',
-    },
-    {
-      id: 3,
-      username: 'Peter',
-      email: 'peter@example.com',
-      image_url: 'https://picsum.photos/3840/2160?random=3',
-    },
-    {
-      id: 4,
-      username: 'Susan',
-      email: 'susan@example.com',
-      image_url: 'https://picsum.photos/3840/2160?random=4',
-    },
-  ];
+    constructor(private http: HttpClient) {}
+  
+    send_invite(inviter_email: string, receiver_email: string): Observable<any> {
+      return this.http.post(
+        EMAIL_API ,
+        {
+          inviter_email,
+          receiver_email,
+        },
+        httpOptions
+      );
+    }
 }

@@ -15,6 +15,9 @@ export class StorageService {
   public saveUser(user: any): void {
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+    window.sessionStorage.setItem('token', user.token);
+    localStorage.setItem('token', user.token);
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   public getUser(): any {
@@ -33,5 +36,12 @@ export class StorageService {
     }
 
     return false;
+  }
+  public getToken(): any {
+    return window.sessionStorage.getItem('token');
+  }
+  public logout(): void {
+    window.sessionStorage.removeItem('token');
+    window.sessionStorage.removeItem(USER_KEY);
   }
 }

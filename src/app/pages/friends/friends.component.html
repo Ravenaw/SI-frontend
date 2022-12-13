@@ -1,12 +1,20 @@
 <div class="container">
   <div class="addFriend">
-    <form class="d-flex mb-3">
+    <form class="d-flex mb-3"
+    *ngIf="isLoggedIn"
+    name="form"
+    (ngSubmit)="f.form.valid && onSubmit()"
+    #f="ngForm"
+    novalidate>
       <div class="form-floating me-3">
         <input
           type="email"
+          name="email"
           class="form-control"
           id="floatingInput"
+          [(ngModel)]="form.email"
           placeholder="Email"
+          [ngClass]="{ 'is-invalid': f.submitted }"
         />
         <label for="floatingInput">Email</label>
       </div>
