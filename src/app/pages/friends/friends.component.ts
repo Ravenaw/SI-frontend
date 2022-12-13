@@ -10,6 +10,7 @@ export class FriendsComponent {
   constructor(private friendsListService: FriendsListService) { }
   friendsList: any = [];
   ngOnInit() {
-    this.friendsList = this.friendsListService.friendsList;
+    //this.friendsList = this.friendsListService.friendsList;
   }
+  
 }
