@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const EMAIL_API = 'http://68.219.117.56:8001/sendInvite';
+const EMAIL_API = 'https://68.219.117.56:8001/sendInvite';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json', 
