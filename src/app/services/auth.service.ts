@@ -5,10 +5,10 @@ import { Observable } from 'rxjs';
 const AUTH_API = 'https://13.74.136.176:8000/';
 
 const httpOptions = {
-  withCredentials: true,
   headers: new HttpHeaders({ 'Content-Type': 'application/json', 
    'Access-Control-Allow-Origin': '*',
-   'Ocp-Apim-Subscription-Key': 'e64edeb333d44d75a71c4a269d757e13'})
+   'Ocp-Apim-Subscription-Key': 'e64edeb333d44d75a71c4a269d757e13'}),
+  withCredentials: true
 };
 
 @Injectable({
