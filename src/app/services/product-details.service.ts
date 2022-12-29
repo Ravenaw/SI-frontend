@@ -20,7 +20,7 @@ export class ProductDetailsService {
     headers = headers.append('x-Flatten', 'true');
     headers = headers.append('Content-Type', 'application/json');
     return this.http.post
-      ("https://68.219.99.197:8002", {"query": "query getAllProducts {products {id product_name product_sub_title product_description price main_category sub_category  overall_rating}}" }, { headers: headers });
+      ("http://68.219.99.197:8002", {"query": "query getAllProducts {products {id product_name product_sub_title product_description price main_category sub_category  overall_rating}}" }, { headers: headers });
 
   }
 
@@ -31,7 +31,7 @@ export class ProductDetailsService {
     headers = headers.append('x-Flatten', 'true');
     headers = headers.append('Content-Type', 'application/json');
     return this.http.post
-      ("https://68.219.99.197:8002",
+      ("http://68.219.99.197:8002",
        {
         "query": "query getProduct($productId: ID!) {product(id: $productId) {id product_name product_description price product_images {product_id image_url alt_text additional_info}}}",
         "variables": {"productId": id} 

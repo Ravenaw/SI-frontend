@@ -17,4 +17,9 @@
         </div>
     </div>
   </div>
+  <div class="row">
+    <button class="col-lg-4" (click)="prevPage()" >Prev</button>
+    <div class="col-lg-4">{{page}} / {{lastPage}}</div>
+    <button class="col-lg-4"(click)="nextPage()" >Next</button>
+  </div>
 </div>
