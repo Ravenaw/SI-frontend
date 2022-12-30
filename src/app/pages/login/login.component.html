@@ -1,47 +1,19 @@
-
 <div class="col-md-3">
-  <div class="card card-container">
-    <img
-      id="profile-img"
-      src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-      class="profile-img-card"
-    />
-    <form
-      *ngIf="!isLoggedIn"
-      name="form"
-      (ngSubmit)="f.form.valid && onSubmit()"
-      #f="ngForm"
-      novalidate
-    >
+  <div class="card card-container" *ngIf="!isLoggedIn">
+    <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
       <div class="form-group">
         <label for="email">Email</label>
-        <input
-        id="email"
-          type="email"
-          class="form-control"
-          name="email"
-          [(ngModel)]="form.email"
-          required
-          #email="ngModel"
-          [ngClass]="{ 'is-invalid': f.submitted && email.errors }"
-        />
+        <input id="email" type="email" class="form-control" name="email" [(ngModel)]="form.email" required
+          #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.errors }" />
         <div *ngIf="email.errors && f.submitted" class="invalid-feedback">
           Email is required!
         </div>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input
-        id="password"
-          type="password"
-          class="form-control"
-          name="password"
-          [(ngModel)]="form.password"
-          required
-          minlength="6"
-          #password="ngModel"
-          [ngClass]="{ 'is-invalid': f.submitted && password.errors }"
-        />
+        <input id="password" type="password" class="form-control" name="password" [(ngModel)]="form.password" required
+          minlength="6" #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.errors }" />
         <div *ngIf="password.errors && f.submitted" class="invalid-feedback">
           <div *ngIf="password.errors['required']">Password is required</div>
           <div *ngIf="password.errors['minlength']">
@@ -60,9 +32,53 @@
         </div>
       </div>
     </form>
-
-    <div class="alert alert-success" *ngIf="isLoggedIn">
+  </div>
+  <div *ngIf="isLoggedIn">
+    <div class="alert alert-success">
       Logged in as {{ roles }}.
     </div>
+    <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
+    <form name="updateForm" (ngSubmit)="onSubmitUpdate()" #u="ngForm" novalidate>
+      <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+
+      <div class="file-upload">
+
+        {{fileName || "No file uploaded yet."}}
+
+        <button color="primary" class="upload-btn" (click)="fileUpload.click()">
+          <div>attach_file</div>
+        </button>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" class="form-control" name="email" [(ngModel)]="updateForm.email" required
+          #email="ngModel" [ngClass]="{ 'is-invalid': u.submitted && email.errors }" />
+        <div *ngIf="email.errors && u.submitted" class="invalid-feedback">
+          Email is required!
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" class="form-control" name="password" [(ngModel)]="updateForm.password"
+          required minlength="6" #password="ngModel" [ngClass]="{ 'is-invalid': u.submitted && password.errors }" />
+        <div *ngIf="password.errors && u.submitted" class="invalid-feedback">
+          <div *ngIf="password.errors['required']">Password is required</div>
+          <div *ngIf="password.errors['minlength']">
+            Password must be at least 6 characters
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary btn-block">
+          Update
+        </button>
+      </div>
+      <div class="form-group">
+        <div *ngIf="u.submitted && isLoginFailed" class="alert alert-danger" role="alert">
+          Update failed: {{ errorMessage }}
+        </div>
+      </div>
+    </form>
+
   </div>
 </div>

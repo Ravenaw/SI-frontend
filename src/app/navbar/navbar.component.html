@@ -35,11 +35,10 @@
           <a class="nav-link" routerLink="signup" routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }">Sign up</a>
         </li>
-        <div (click)="Logout()">
-          <li class="nav-item">
-            <a class="nav-link">Logout</a>
-          </li>
-        </div>
+        <li class="nav-item" (click)="Logout()" >
+          <a class="nav-link" routerLink=""
+          >Logout</a>
+        </li>
       </ul>
     </div>
   </div>

@@ -13,7 +13,16 @@ export class LoginComponent implements OnInit {
     email: null,
     password: null
   };
+
+  updateForm: any = {
+    email: null,
+    password: null,
+    newPassword: null,
+    file: null
+  };
+  fileName = '';
   isLoggedIn = false;
+  useremail: any;
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
@@ -24,6 +33,10 @@ export class LoginComponent implements OnInit {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
+      this.useremail = this.storageService.getUser();
+      this.authService.getUser(this.useremail.user.email).then(data => {
+        console.log(data);
+      })
     }
   }
 
@@ -44,4 +57,41 @@ export class LoginComponent implements OnInit {
     })
     
   }
+
+  onSubmitUpdate(): void {
+    const { email, password } = this.form;
+    console.log("ver 1.0.2");
+    this.authService.login(email, password).then(data => {
+      this.storageService.saveUser(data);
+
+      this.isLoginFailed = false;
+      this.isLoggedIn = true;
+      this.roles = this.storageService.getUser().roles;
+      this.router.navigate([''])
+    })
+    .catch(err => {
+      this.errorMessage = err.error.message;
+      this.isLoginFailed = true;
+    })
+    
+  }
+
+  onFileSelected(event: any) {
+
+    const file:File = event.target.files[0];
+
+    if (file) {
+
+        this.fileName = file.name;
+
+        const formData = new FormData();
+
+        formData.append("thumbnail", file);
+
+        const upload$ = this.authService.updatePicture(formData);
+
+        upload$.subscribe();
+    }
+}
+  
 }
