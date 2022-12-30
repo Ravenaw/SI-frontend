@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const AUTH_API = 'http://13.74.136.176:8000/';
+const AUTH_API = 'https://system-integration-goat.northeurope.cloudapp.azure.com:8000/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json', 
@@ -18,7 +18,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Promise<any> {
-    return fetch('http://13.74.136.176:8000/login', {
+    return fetch(AUTH_API + 'login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
