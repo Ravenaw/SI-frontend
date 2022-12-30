@@ -12,3 +12,8 @@
     color: palevioletred;
     border-color: palevioletred;
 }
+.btn:hover
+{
+ background-color: palevioletred;
+ color: white;
+}
