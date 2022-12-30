@@ -29,20 +29,19 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     const { email, password } = this.form;
+    console.log("ver 1.0.0");
+    this.authService.login(email, password).then(data => {
+      this.storageService.saveUser(data);
 
-    this.authService.login(email, password).subscribe({
-      next: data => {
-        this.storageService.saveUser(data);
-
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
-        this.roles = this.storageService.getUser().roles;
-        this.router.navigate([''])
-      },
-      error: err => {
-        this.errorMessage = err.error.message;
-        this.isLoginFailed = true;
-      }
-    });
+      this.isLoginFailed = false;
+      this.isLoggedIn = true;
+      this.roles = this.storageService.getUser().roles;
+      this.router.navigate([''])
+    })
+    .catch(err => {
+      this.errorMessage = err.error.message;
+      this.isLoginFailed = true;
+    })
+    
   }
 }
