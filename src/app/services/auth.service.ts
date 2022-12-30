@@ -18,7 +18,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Promise<any> {
-    return fetch('http://13.74.136.176:8000/login', {
+    return fetch('api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

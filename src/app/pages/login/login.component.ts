@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     const { email, password } = this.form;
-    console.log("ver 1.0.0");
+    console.log("ver 1.0.1");
     this.authService.login(email, password).then(data => {
       this.storageService.saveUser(data);
 
