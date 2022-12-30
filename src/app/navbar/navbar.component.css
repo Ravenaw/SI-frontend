@@ -7,13 +7,14 @@
 {
     color: palevioletred;
 }
-.btn-outline-success
+.btn
 {
     color: palevioletred;
     border-color: palevioletred;
 }
 .btn:hover
 {
- background-color: palevioletred;
+ background-color: pink;
  color: white;
+ border-color: pink;
 }
