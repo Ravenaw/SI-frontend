@@ -13,14 +13,21 @@ export class ProductDetailsService {
 
   productDetails: any;
   
-  getProducts(): Observable<any> {
+  getProducts(keyword?: string): Observable<any> {
     let authKey = this.storageService.getToken();
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', authKey);
     headers = headers.append('x-Flatten', 'true');
     headers = headers.append('Content-Type', 'application/json');
+    if(keyword){
     return this.http.post
+      ("https://system-integration-goat.northeurope.cloudapp.azure.com:8002/graphql", 
+      {"query": "query FindProducts($searchString: String!) {findProducts(search_string: $searchString) {id product_name product_sub_title product_description price main_category sub_category  overall_rating}}",
+      "variables": {"searchString": keyword}  }, { headers: headers });
+    }
+    else{return this.http.post
       ("https://system-integration-goat.northeurope.cloudapp.azure.com:8002/graphql", {"query": "query getAllProducts {products {id product_name product_sub_title product_description price main_category sub_category  overall_rating}}" }, { headers: headers });
+    }
 
   }
 
