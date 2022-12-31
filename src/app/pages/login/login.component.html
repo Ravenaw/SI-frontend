@@ -37,7 +37,7 @@
     <div class="alert alert-success">
       Logged in as {{ roles }}.
     </div>
-    <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" class="profile-img-card" />
+    <img id="profile-img" src="{{userdata.user.picture_path}}" class="profile-img-card" />
     <form name="updateForm" (ngSubmit)="onSubmitUpdate()" #u="ngForm" novalidate>
       <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
 

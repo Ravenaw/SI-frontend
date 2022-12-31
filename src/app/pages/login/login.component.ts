@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { Router } from '@angular/router';
@@ -22,20 +22,22 @@ export class LoginComponent implements OnInit {
   };
   fileName = '';
   isLoggedIn = false;
-  useremail: any;
+  userdata: any;
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
 
-  constructor(private authService: AuthService, private storageService: StorageService, private router:Router) { }
+  constructor(private authService: AuthService, private storageService: StorageService, private router:Router,private ref: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
-      this.useremail = this.storageService.getUser();
-      this.authService.getUser(this.useremail.user.email).then(data => {
+      this.userdata = this.storageService.getUser();
+      this.authService.getUser(this.userdata.user.email).then(data => {
         console.log(data);
+        this.userdata.user = data;
+        //this.ref.detectChanges();
       })
     }
   }
@@ -87,7 +89,7 @@ export class LoginComponent implements OnInit {
         const formData = new FormData();
 
         formData.append("name", "don't care");
-        formData.append("email", this.useremail.user.email);
+        formData.append("email", this.userdata.user.email);
         formData.append("phone", "123456789");
         formData.append("file", file);
         

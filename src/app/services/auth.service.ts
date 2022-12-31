@@ -12,6 +12,12 @@ const httpOptions = {
   withCredentials: true
 };
 
+const httpOptions2 = {
+  headers: new HttpHeaders({
+   'Access-Control-Allow-Origin': '*'}),
+  withCredentials: true
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -50,9 +56,9 @@ export class AuthService {
     return this.http.post(AUTH_API + 'signout', { }, httpOptions);
   }
 
-  updatePicture(file: FormData): Observable<any> {
+  updatePicture(blob: FormData): Observable<any> {
     //const upload$ = this.http.post("/api/thumbnail-upload", formData);
-    return this.http.post(USER_API + 'updateInfo',file, httpOptions);
+    return this.http.post(USER_API + 'updateInfo',blob, httpOptions2);
   }
 
   getUser(email: string): Promise<any> {
