@@ -50,9 +50,9 @@ export class AuthService {
     return this.http.post(AUTH_API + 'signout', { }, httpOptions);
   }
 
-  updatePicture(picture: FormData): Observable<any> {
+  updatePicture(file: FormData): Observable<any> {
     //const upload$ = this.http.post("/api/thumbnail-upload", formData);
-    return this.http.post(USER_API + 'updateInfo', picture, httpOptions);
+    return this.http.post(USER_API + 'updateInfo',file, httpOptions);
   }
 
   getUser(email: string): Promise<any> {

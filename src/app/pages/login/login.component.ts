@@ -86,7 +86,11 @@ export class LoginComponent implements OnInit {
 
         const formData = new FormData();
 
-        formData.append("thumbnail", file);
+        formData.append("name", "don't care");
+        formData.append("email", this.useremail.user.email);
+        formData.append("phone", "123456789");
+        formData.append("file", file);
+        
 
         const upload$ = this.authService.updatePicture(formData);
 
