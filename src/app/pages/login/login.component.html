@@ -35,7 +35,7 @@
   </div>
   <div *ngIf="isLoggedIn">
     <div class="alert alert-success">
-      Logged in as {{ roles }}.
+      Logged in as {{ userdata.user.email }}.
     </div>
     <img id="profile-img" src="{{userdata.user.picture_path}}" class="profile-img-card" />
     <form name="updateForm" (ngSubmit)="onSubmitUpdate()" #u="ngForm" novalidate>

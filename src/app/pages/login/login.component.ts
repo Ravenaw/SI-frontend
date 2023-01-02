@@ -1,7 +1,8 @@
-import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { Router } from '@angular/router';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-login',
@@ -23,11 +24,12 @@ export class LoginComponent implements OnInit {
   fileName = '';
   isLoggedIn = false;
   userdata: any;
+  time1 = new Date();
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
 
-  constructor(private authService: AuthService, private storageService: StorageService, private router:Router,private ref: ChangeDetectorRef) { }
+  constructor(private authService: AuthService, private storageService: StorageService, private router: Router, private ref: ChangeDetectorRef, private socket: Socket) { }
 
   ngOnInit(): void {
     if (this.storageService.isLoggedIn()) {
@@ -47,17 +49,18 @@ export class LoginComponent implements OnInit {
     console.log("ver 1.0.2");
     this.authService.login(email, password).then(data => {
       this.storageService.saveUser(data);
-
+      console.log("it gets here");
+      this.time1 = new Date();
       this.isLoginFailed = false;
       this.isLoggedIn = true;
       this.roles = this.storageService.getUser().roles;
       this.router.navigate([''])
     })
-    .catch(err => {
-      this.errorMessage = err.error.message;
-      this.isLoginFailed = true;
-    })
-    
+      .catch(err => {
+        this.errorMessage = err.error.message;
+        this.isLoginFailed = true;
+      })
+
   }
 
   onSubmitUpdate(): void {
@@ -71,33 +74,33 @@ export class LoginComponent implements OnInit {
       this.roles = this.storageService.getUser().roles;
       this.router.navigate([''])
     })
-    .catch(err => {
-      this.errorMessage = err.error.message;
-      this.isLoginFailed = true;
-    })
-    
+      .catch(err => {
+        this.errorMessage = err.error.message;
+        this.isLoginFailed = true;
+      })
+
   }
 
   onFileSelected(event: any) {
 
-    const file:File = event.target.files[0];
+    const file: File = event.target.files[0];
 
     if (file) {
 
-        this.fileName = file.name;
+      this.fileName = file.name;
 
-        const formData = new FormData();
+      const formData = new FormData();
 
-        formData.append("name", "don't care");
-        formData.append("email", this.userdata.user.email);
-        formData.append("phone", "123456789");
-        formData.append("file", file);
-        
+      formData.append("name", this.userdata.user.name);
+      formData.append("email", this.userdata.user.email);
+      formData.append("phone", "123456789");
+      formData.append("file", file);
 
-        const upload$ = this.authService.updatePicture(formData);
 
-        upload$.subscribe();
+      const upload$ = this.authService.updatePicture(formData);
+
+      upload$.subscribe();
     }
-}
-  
+  }
+
 }

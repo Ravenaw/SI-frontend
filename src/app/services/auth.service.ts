@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Socket } from 'ngx-socket-io';
 
 const AUTH_API = 'https://system-integration-goat.northeurope.cloudapp.azure.com:8000/';
 const USER_API = 'https://system-integration-goat.northeurope.cloudapp.azure.com:8004/';
@@ -22,7 +23,7 @@ const httpOptions2 = {
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private socket: Socket) {}
 
   login(email: string, password: string): Promise<any> {
     return fetch(AUTH_API + 'login', {
@@ -37,8 +38,9 @@ export class AuthService {
           password,
           })
     })
-    .then(response => response.json())
-  }
+    .then(
+      response => response.json())
+    }
 
   register(name: string, email: string, password: string): Observable<any> {
     return this.http.post(
