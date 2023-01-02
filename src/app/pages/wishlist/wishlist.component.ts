@@ -11,9 +11,9 @@ export class WishlistComponent {
   wishlistData: any = [];
   ngOnInit() {
     this.wishlistService.getWishList().subscribe((data) => {
-      this.wishlistData = data;
+      this.wishlistData = data.rss.channel.item;
       console.log(this.wishlistData);
     });
-    this.wishlistData = this.wishlistService.wishList;
+    
   }
 }

@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { StorageService } from './storage.service';
+import { Observable } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json', 
    'Access-Control-Allow-Origin': '*',
    'Ocp-Apim-Subscription-Key': 'e64edeb333d44d75a71c4a269d757e13'}),
-  withCredentials: true
+  //withCredentials: true
 };
 
 @Injectable({
@@ -33,14 +34,16 @@ export class WishlistService {
     },
   ];
 
-  getWishList() {
+  getWishList():Observable<any> {
     return this.http.get(this.Link, httpOptions);
   }
 
   addWish(product: any) {
     let wish= {
-      product_id: product.id,
-      user_email: this.storageService.getUser().user.email,
+      item:{
+      title: product.id,
+      description: this.storageService.getUser().user.email
+      }
     }
     return this.http.post(this.Link, wish, httpOptions);
   }
