@@ -19,6 +19,11 @@ export class StorageService {
     localStorage.setItem('token', user.token);
     localStorage.setItem('user', JSON.stringify(user));
   }
+  saveToken(token: string): void {
+    window.sessionStorage.removeItem('token');
+    window.sessionStorage.setItem('token', token);
+    localStorage.setItem('token', token);
+  }
 
   public getUser(): any {
     const user = window.sessionStorage.getItem(USER_KEY);

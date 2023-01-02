@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class SignupComponent {
   isSignUpFailed = false;
   errorMessage = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private storageService: StorageService) {}
 
   ngOnInit(): void {}
 
@@ -30,6 +31,8 @@ export class SignupComponent {
         console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
+        this.storageService.saveUser(data.user);
+        this.storageService.saveToken(data.token);
         this.router.navigate([''])
       },
       (err) => {
