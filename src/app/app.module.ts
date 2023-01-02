@@ -14,6 +14,15 @@ import { HomeComponent } from './pages/home/home.component';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+const config: SocketIoConfig = { url: 'https://system-integration-goat.northeurope.cloudapp.azure.com:8003/', options: {
+  withCredentials: false,
+  extraHeaders: {
+    'Access-Control-Allow-Origin': '*',
+    'Ocp-Apim-Subscription-Key': 'e64edeb333d44d75a71c4a269d757e13'
+  }
+} };
 
 @NgModule({
   declarations: [
@@ -27,8 +36,9 @@ import { FormsModule } from '@angular/forms';
     FriendsComponent,
     HomeComponent,
     ProductDetailsComponent,
+
   ],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, FormsModule, SocketIoModule.forRoot(config)],
   providers: [],
   bootstrap: [AppComponent],
 })

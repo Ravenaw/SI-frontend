@@ -35,7 +35,7 @@ export class ProductsComponent {
           let details = await lastValueFrom(this.productService.getProductDetail(element.id));
           details = JSON.parse(JSON.stringify(details.data));
           element.product_images = details.product.product_images;
-          console.log(element);
+          //console.log(element);
         });
         this.lastPage = Math.ceil(this.allProducts.length / this.pageSize);
         this.ref.detectChanges();
