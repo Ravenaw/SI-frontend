@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import { FriendsListService } from 'src/app/services/friends-list.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { Socket } from 'ngx-socket-io';
+import { HttpClient } from '@angular/common/http';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-friends',
@@ -20,7 +22,7 @@ export class FriendsComponent implements OnInit {
   email: string = '';
   friendsList: any = [];
 
-  constructor(private friendsListService: FriendsListService, private storageService: StorageService, private socket: Socket, private changeDetector:ChangeDetectorRef) { }
+  constructor(private friendsListService: FriendsListService, private http: HttpClient, private storageService: StorageService, private socket: Socket, private changeDetector:ChangeDetectorRef) { }
   ngOnInit() {
     if (this.storageService.isLoggedIn()) {
       this.isLoggedIn = true;
@@ -28,30 +30,32 @@ export class FriendsComponent implements OnInit {
       this.token = this.storageService.getToken();
       this.email = this.storageService.getUser().email;
       this.email=localStorage.getItem('user')? JSON.parse(localStorage.getItem('user')!).user.email : '';
-      fetch('https://system-integration-goat.northeurope.cloudapp.azure.com:8003/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Ocp-Apim-Subscription-Key': 'e64edeb333d44d75a71c4a269d757e13'
-        },
-        body: JSON.stringify({ email:this.email })
-      }).then(response => {
-        console.log(response);
-        return response.json();
-      }).then(data => {
-        console.log(data.return);
-        this.socket.emit('sendUserToServer', data.return);
-        console.log("it gets here 2");
-        this.storageService.saveUserSocket(data.return);
-        this.friendsList = this.storageService.getFriendsList();
-        this.changeDetector.detectChanges();
-      });
+
+      const makeRequest = async () => {
+        try {
+          let response = await lastValueFrom<any>(this.http.post('https://system-integration-goat.northeurope.cloudapp.azure.com:8003/login', { email: this.email }, { headers: { 'Content-Type': 'application/json', 'Ocp-Apim-Subscription-Key': 'e64edeb333d44d75a71c4a269d757e13' } }));
+          console.log(response);
+          this.socket.emit('sendUserToServer', response.return);
+          this.storageService.saveUserSocket(response.return);
+          this.storageService.saveFriendsList(response.return.friends);
+          //this.friendsList = this.storageService.getFriendsList();
+          //this.changeDetector.detectChanges();
+
+          
+          
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      makeRequest();
+
       this.socket.on('friendsList', (data: any) => {
         console.log(data);
         this.storageService.saveFriendsList(data);
-        this.friendsList = this.storageService.getFriendsList();
+        //this.friendsList = this.storageService.getFriendsList();
+        //this.changeDetector.detectChanges();
       });
-      this.changeDetector.detectChanges();
+      
     }
   }
   onSubmit(): void {

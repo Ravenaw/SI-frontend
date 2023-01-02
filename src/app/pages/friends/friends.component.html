@@ -10,10 +10,10 @@
       <button class="w-20 addbtn btn btn-m" type="submit">Add Friend</button>
     </form>
   </div>
-  <div *ngIf="friendsList.length == 0;else showFriends">
+  <div *ngIf="friendsList.length == 0">
     <h3 class="text-center">You have no friends yet</h3>
   </div>
-  <ng-template #showFriends>
+  <div *ngIf="friendsList.length > 0">
     <h3 class="text-center">Your friends</h3>
     <div class="row mb-3" *ngFor="let f of friendsList">
       <div class="col-md-7 col-sm-7 mt-3 mb-3">
@@ -24,5 +24,5 @@
         <button class="btn btn-danger pull-right">Remove friend</button>
       </div>
     </div>
-  </ng-template>
+  </div>
 </div>
