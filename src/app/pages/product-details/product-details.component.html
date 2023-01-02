@@ -14,7 +14,7 @@
             <p class="text-muted">{{productDetails.product_description}}</p>
             <p>Rating: {{productDetails.overall_rating}}</p>
             <p>{{productDetails.price | currency: 'DKK' }}</p>
-            <a class="btn">Add to wishlist</a>
+            <a class="btn" (click)="addWish()">Add to wishlist</a>
         </div>
     </div>
 </div>

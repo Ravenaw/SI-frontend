@@ -10,6 +10,10 @@ export class WishlistComponent {
   constructor(public wishlistService: WishlistService) {}
   wishlistData: any = [];
   ngOnInit() {
+    this.wishlistService.getWishList().subscribe((data) => {
+      this.wishlistData = data;
+      console.log(this.wishlistData);
+    });
     this.wishlistData = this.wishlistService.wishList;
   }
 }

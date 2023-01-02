@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductDetailsService } from 'src/app/services/product-details.service';
+import { WishlistService } from 'src/app/services/wishlist.service';
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
@@ -9,7 +10,8 @@ import { ProductDetailsService } from 'src/app/services/product-details.service'
 export class ProductDetailsComponent {
   constructor(
     private param: ActivatedRoute,
-    private service: ProductDetailsService
+    private service: ProductDetailsService,
+    private wishlistService: WishlistService
   ) {}
   productId: any;
   productDetails: any;
@@ -26,5 +28,11 @@ export class ProductDetailsComponent {
      
       
     
+  }
+
+  addWish() {
+    this.wishlistService.addWish(this.productDetails).subscribe((data) => {
+      console.log(data);
+    });
   }
 }
