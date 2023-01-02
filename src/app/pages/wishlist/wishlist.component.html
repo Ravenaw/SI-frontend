@@ -2,10 +2,11 @@
     <div class="row">
       <div class="col-lg-4" *ngFor="let w of wishlistData">
           <div class="productbox mt-3 mb-3">
-              <img src="{{w.image_url}}">
-              <h1>{{w.title._text}}</h1>
+              <img src="{{w.product_images[0].image_url}}">
+              <h1>{{w.product_name}}</h1>
+              <h1>{{w.user}}</h1>
               <p>{{w.product_description}}</p>
-              <p>{{w.price | currency:'DKK'}}</p>
+              <p>{{w.price}}</p>
               <br/>
               <a class="lmbtn btn" style="float: left;" [routerLink]="['/',w.id]">Learn more</a>
               <a class="btn btn-danger" style="float: right;">Remove</a>
