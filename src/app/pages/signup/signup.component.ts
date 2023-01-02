@@ -32,7 +32,8 @@ export class SignupComponent {
         this.isSuccessful = true;
         this.isSignUpFailed = false;
         this.storageService.saveUser(data);
-        this.storageService.saveToken(data.token);
+        //token is saved via saveUser
+        //this.storageService.saveToken(data.token);
         this.router.navigate([''])
       },
       (err) => {
